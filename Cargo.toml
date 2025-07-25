@@ -3,4 +3,8 @@ name = "tpe_pi_rust"
 version = "0.1.0"
 edition = "2024"
 
+[features]
+nyc = []
+chi = []
+
 [dependencies]

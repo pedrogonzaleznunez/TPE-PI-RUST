@@ -9,27 +9,8 @@ use std::collections::HashMap;
 use std::error::Error;
 use std::result::Result;
 
-//constants for CSV files
-// for CHI
-enum ChiFields {
-    Acronym = 0,
-    AgencyName = 1,
-    Status = 2,
-    CreatedDate = 3, // yyyy-MM-dd HH:mm:ss
-    BoroughName = 4,
-    Latitude = 5,
-    Longitude = 6,
-}
-// for NYC
-enum NycFields {
-    CreatedDate = 0, // yyyy-MM-dd HH:mm:ss
-    AgencyName = 1,
-    Acronym = 2,
-    Status = 3,
-    Borough = 4,
-    Latitude = 5,
-    Longitude = 6,
-}
+use super::constants::CITY_CONFIG;
+
 enum TypesFields {
     Name = 0,
     Acronym = 1,
@@ -55,7 +36,7 @@ pub fn readTypesCsv(
 
         let fields: Vec<&str> = line.split(';').collect();
 
-        //add key and value to typesByAcronym map
+        // add key and value to typesByAcronym map
         typesByAcronym.insert(
             fields[TypesFields::Acronym as usize].to_string(),
             fields[TypesFields::Name as usize].to_string(),
@@ -90,8 +71,9 @@ pub fn readReqCsv(
 
         let fields: Vec<&str> = line.split(';').collect();
 
-        let agencyName: &str = fields[NycFields::AgencyName as usize];
-        let acronym: &str = fields[NycFields::Acronym as usize];
+        let agencyName: &str = fields[CITY_CONFIG.requestCSVFields.AgencyName as usize];
+        let acronym: &str = fields[CITY_CONFIG.requestCSVFields.Acronym as usize];
+
         let typeName: &str = typesByAcronym
             .get(acronym)
             .expect("Type name must be defined");

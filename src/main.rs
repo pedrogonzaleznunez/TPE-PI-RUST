@@ -6,7 +6,10 @@ use std::io::{BufRead, BufReader, Result};
 
 fn main() -> Result<()> {
     // Abrir el archivo
-    let file = File::open("/Users/pedrogonzaleznunez/Documents/GitHub/TPE-PI-RUST/resources/Dataset Alumnos/typesCHI.csv")?;
+    let root = std::env::current_dir()?;
+    let path = root.join("resources/Dataset Alumnos/typesCHI.csv");
+    println!("{}", path.display());
+    let file = File::open(path)?;
     let reader = BufReader::new(file);
 
     for (i, line) in reader.lines().enumerate() {

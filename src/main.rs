@@ -1,7 +1,7 @@
 use std::fs::File;
-use std::io::{BufReader, BufRead, Result};
+use std::io::{BufRead, BufReader, Result};
 
-// -> Result<()> 
+// -> Result<()>
 // significa que puede devolver una tupla vacia () si todo sale bien, o un error si algo falla
 
 fn main() -> Result<()> {
@@ -14,8 +14,8 @@ fn main() -> Result<()> {
         let fields: Vec<&str> = line.split(',').collect();
 
         if i == 0 {
-            println!("{:?}",fields);
-            println!("{}",'\n');
+            println!("{:?}", fields);
+            println!("{}", '\n');
         } else {
             println!("{} {:?}", i, fields);
         }
@@ -23,4 +23,3 @@ fn main() -> Result<()> {
 
     Ok(())
 }
-

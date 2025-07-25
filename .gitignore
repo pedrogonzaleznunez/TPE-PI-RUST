@@ -1,2 +1,7 @@
+# Compiled executables
+*
+!/**/
+!*.*
+
 /target
 /resources

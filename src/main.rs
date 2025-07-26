@@ -7,13 +7,20 @@ use std::error::Error;
 use std::result::Result;
 
 mod constants;
+mod ctable;
 mod parse_csv;
+
+use std::ffi::CString;
 
 use constants::CITY_CONFIG;
 use parse_csv::readTypesCsv;
 
 use parse_csv::readReqCsvQ1;
 use parse_csv::readReqCsvQ2;
+
+use crate::ctable::addHTMLRow;
+use crate::ctable::closeHTMLTable;
+use crate::ctable::newTable;
 // use parse_csv::readReqCsvQ3;
 // use parse_csv::readReqCsvQ4;
 // use parse_csv::readReqCsvQ5;
@@ -48,16 +55,63 @@ fn main() -> Result<(), Box<dyn Error>> {
     // QUERY 2 - read csv files
     readReqCsvQ2(CITY_CONFIG.requestsFilePath, &mut boroughLatLngBySize)?;
 
-    // print for query1
-    // typesByAgencyBySize.iter().for_each(|(infr, b)| {
-    //     b.iter()
-    //         .for_each(|(agency, v)| println!("{} ({}) - {}", infr, agency, v))
-    // });
+    unsafe {
+        let mut table = newTable(
+            CString::new("output_query1.html").unwrap().as_ptr(),
+            3,
+            CString::new("type").unwrap().as_ptr(),
+            CString::new("agency").unwrap().as_ptr(),
+            CString::new("requests").unwrap().as_ptr(),
+        );
 
-    // print for query2
-    boroughLatLngBySize
-        .iter()
-        .for_each(|((borough, lat, lng), v)| println!("{};{};{};{}", borough, lat, lng, v));
+        for (infr, agencies) in &typesByAgencyBySize {
+            for (agency, count) in agencies {
+                addHTMLRow(
+                    table,
+                    CString::new(infr.as_str())
+                        .expect("Failed to create CString")
+                        .as_ptr(),
+                    CString::new(agency.as_str())
+                        .expect("Failed to create CString")
+                        .as_ptr(),
+                    CString::new(count.to_string())
+                        .expect("Failed to create CString")
+                        .as_ptr(),
+                );
+            }
+        }
+
+        closeHTMLTable(table);
+
+        table = newTable(
+            CString::new("output_query2.html").unwrap().as_ptr(),
+            4,
+            CString::new("borough").unwrap().as_ptr(),
+            CString::new("latitude").unwrap().as_ptr(),
+            CString::new("longitude").unwrap().as_ptr(),
+            CString::new("requests").unwrap().as_ptr(),
+        );
+
+        for ((borough, lat, long), count) in &boroughLatLngBySize {
+            addHTMLRow(
+                table,
+                CString::new(borough.as_str())
+                    .expect("Failed to create CString")
+                    .as_ptr(),
+                CString::new(lat.to_string())
+                    .expect("Failed to create CString")
+                    .as_ptr(),
+                CString::new(long.to_string())
+                    .expect("Failed to create CString")
+                    .as_ptr(),
+                CString::new(count.to_string())
+                    .expect("Failed to create CString")
+                    .as_ptr(),
+            );
+        }
+
+        closeHTMLTable(table);
+    }
 
     Ok(())
 }

@@ -119,14 +119,14 @@ pub fn readReqCsvQ2(
             .parse()
             .expect("Longitude must be a valid number");
 
-        // get the cuadrant from lat and lng
-        let (lat_cuadrant, lng_cuadrant) = getCuadrantFromLatLng(lat, lng);
+        // get the quadrant from lat and lng
+        let (lat_quadrant, lng_quadrant) = getquadrantFromLatLng(lat, lng);
 
         // now we can insert the data into the map
-        // the key is a tuple of (borough, lat_cuadrant, lng_cuadrant)
-        // and the value is the count of requests in that cuadrant
+        // the key is a tuple of (borough, lat_quadrant, lng_quadrant)
+        // and the value is the count of requests in that quadrant
         boroughLatLngBySize
-            .entry((borough.to_string(), lat_cuadrant, lng_cuadrant))
+            .entry((borough.to_string(), lat_quadrant, lng_quadrant))
             .and_modify(|count: &mut i32| *count += 1)
             .or_insert(1);
     }
@@ -135,9 +135,10 @@ pub fn readReqCsvQ2(
 }
 
 // aux method for query 2
-fn getCuadrantFromLatLng(lat: f64, lng: f64) -> (i32, i32) {
-    let lat_cuadrant = (lat / 0.1).floor() as i32;
-    let lng_cuadrant = (lng / 0.1).floor() as i32;
+fn getquadrantFromLatLng(lat: f64, lng: f64) -> (i32, i32) {
+    const QUADRANT_SIZE: f64 = 0.1;
+    let lat_quadrant = (lat / QUADRANT_SIZE).floor() as i32;
+    let lng_quadrant = (lng / QUADRANT_SIZE).floor() as i32;
 
-    (lat_cuadrant, lng_cuadrant)
+    (lat_quadrant, lng_quadrant)
 }

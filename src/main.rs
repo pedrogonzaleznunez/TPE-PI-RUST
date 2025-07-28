@@ -31,19 +31,19 @@ fn main() -> Result<(), Box<dyn Error>> {
     // get command line arguments
     let args: Vec<String> = env::args().collect();
 
-    println!("Program arguments: {:?}", args);
-    println!("cant: {}", args.len());
-    // argument validations
-    if args.len() < 2 || args.len() > 4 {
-        eprintln!("Usage: ./program_name <fromDate> <toDate> ");
-        return Err("Not enough arguments".into());
-    } else if args[1].parse::<i32>().is_err() || args[2].parse::<i32>().is_err() {
-        eprintln!("Error: <fromDate> and <toDate> must be valid years");
-        return Err("Invalid year format".into());
-    } else if args[2] < args[1] {
-        eprintln!("Error: <toDate> must be greater than or equal to <fromDate>");
-        return Err("Invalid date range".into());
-    }
+    // println!("Program arguments: {:?}", args);
+    // println!("args count: {}", args.len());
+    // // argument validations
+    // if args.len() < 2 || args.len() > 4 {
+    //     eprintln!("Usage: ./program_name <fromDate> <toDate> ");
+    //     return Err("Not enough arguments".into());
+    // } else if args[1].parse::<i32>().is_err() || args[2].parse::<i32>().is_err() {
+    //     eprintln!("Error: <fromDate> and <toDate> must be valid years");
+    //     return Err("Invalid year format".into());
+    // } else if args[2] < args[1] {
+    //     eprintln!("Error: <toDate> must be greater than or equal to <fromDate>");
+    //     return Err("Invalid date range".into());
+    // }
 
     // structures for query 1
     let mut typesByAcronym: HashMap<String, String> = HashMap::new();

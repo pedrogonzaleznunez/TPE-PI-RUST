@@ -6,4 +6,12 @@
 /target
 /resources
 
-output_*
+# Ignore all .csv and .html files
+*.csv
+*.html
+# keep those in fixtures directory
+!fixtures/**/*.csv
+!fixtures/**/*.html
+
+# macOS
+.DS_Store

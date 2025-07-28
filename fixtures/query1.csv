@@ -1,0 +1,308 @@
+type;agency;requests
+AGENCY;HPD;1
+AHV Inspection Unit;DOB;27
+APPLIANCE;HPD;5911
+ATF;DEP;5
+Abandoned Bike;DSNY;213
+Abandoned Vehicle;NYC311-PRD;49
+Abandoned Vehicle;NYPD;9497
+Adopt-A-Basket;DSNY;77
+Advocate - Levy;DOF;1
+Advocate-Commercial Exemptions;DOF;1
+Air Quality;DEP;3389
+Animal Abuse;NYPD;1384
+Animal Facility - No Permit;DOHMH;40
+Animal in a Park;DPR;739
+Animal-Abuse;NYC311-PRD;10
+Animal-Abuse;NYPD;1290
+Appliance;HPD;23
+Asbestos;DEP;557
+Asbestos;DOHMH;216
+BEST/Site Safety;DOB;722
+Beach/Pool/Sauna Complaint;DOHMH;78
+Bench;DOT;2
+Bike Rack;DOT;7
+Bike Rack Condition;DOT;55
+Bike/Roller/Skate Chronic;NYPD;517
+Blocked Driveway;NYC311-PRD;98
+Blocked Driveway;NYPD;51717
+Boilers;DOB;992
+Borough Office;DOB;231
+Bottled Water;DOHMH;7
+Broken Muni Meter;DOT;2725
+Broken Parking Meter;DOT;1665
+Building Condition;DOT;3
+Building Drinking Water Tank;DOHMH;6
+Building Marshals office;DOB;225
+Building/Use;DOB;11172
+Bus Stop Shelter Complaint;DOT;265
+Bus Stop Shelter Placement;DOT;70
+CONSTRUCTION;HPD;126
+COVID-19 Non-essential Construction;DOB;237
+Calorie Labeling;DOHMH;7
+City Vehicle Placard Complaint;3-1-1;60
+Collection Truck Noise;DSNY;37
+Commercial Disposal Complaint;DSNY;281
+Construction;DOB;834
+Construction Lead Dust;DOHMH;155
+Construction Safety Enforcement;DOB;948
+Consumer Complaint;DCWP;8029
+Cooling Tower;DOHMH;4
+Cranes and Derricks;DOB;92
+Curb Condition;DOT;2188
+DEP Sidewalk Condition;DOT;2
+DEP Street Condition;DOT;30
+DOB Posted Notice or Order;DOB;1
+DOF Property - Payment Issue;DOF;344
+DOOR/WINDOW;HPD;12523
+DPR Internal;DPR;44
+DRIE;DOF;123
+Damaged Tree;DPR;13581
+Day Care;DOHMH;287
+Dead Animal;DSNY;1015
+Dead Tree;DPR;1615
+Dead/Dying Tree;DPR;2834
+Dept of Investigations;DOB;5
+Derelict Bicycle;DSNY;446
+Derelict Vehicle;NYPD;5381
+Derelict Vehicles;DSNY;11759
+Dirty Condition;DSNY;4978
+Dirty Conditions;DSNY;10032
+Discipline and Suspension;DOE;11
+Disorderly Youth;NYC311-PRD;1
+Disorderly Youth;NYPD;139
+Dispatched Taxi Compliment;TLC;1
+Door/Window;HPD;29
+Drinking;NYC311-PRD;2
+Drinking;NYPD;848
+Drinking Water;DOHMH;83
+Drug Activity;NYC311-PRD;22
+Drug Activity;NYPD;1986
+Dumpster Complaint;DSNY;175
+E-Scooter;DOT;45
+ELECTRIC;HPD;11965
+ELEVATOR;HPD;437
+Electric;HPD;13
+Electrical;DOB;1386
+Electronics Waste;DSNY;847
+Electronics Waste Appointment;DSNY;2745
+Elevator;DOB;5939
+Emergency Response Team (ERT);DOB;1727
+Encampment;DHS;1031
+Encampment;NYC311-PRD;9
+Encampment;NYPD;2728
+Executive Inspections;DOB;45
+FATF;DEP;8
+FCST;DEP;12
+FLOORING/STAIRS;HPD;7858
+Facades;DOB;70
+Face Covering Violation;DOHMH;57
+Ferry Inquiry;DOT;2
+Fire Alarm - Reinspection;FDNY;2
+Flooring/Stairs;HPD;28
+Foam Ban Enforcement;DSNY;3
+Food Establishment;DOHMH;4179
+Food Poisoning;DOHMH;1170
+For Hire Vehicle Complaint;TLC;3548
+For Hire Vehicle Report;TLC;111
+Forensic Engineering;DOB;39
+Found Property;TLC;80
+GENERAL;HPD;9092
+GENERAL CONSTRUCTION;HPD;10848
+General;HPD;59
+General Construction/Plumbing;DOB;15913
+Graffiti;DSNY;6979
+Graffiti;NYC311-PRD;1
+Graffiti;NYPD;429
+Green Taxi Complaint;TLC;33
+Green Taxi Report;TLC;3
+HEAT/HOT WATER;HPD;74459
+HEATING;HPD;18448
+Harboring Bees/Wasps;DOHMH;111
+Hazardous Material;DEP;1
+Hazardous Materials;DEP;889
+Health;DOE;6
+Heat/Hot Water;HPD;69
+Highway Condition;DOT;7
+Homeless Encampment;NYPD;851
+Homeless Person Assistance;DHS;7329
+Homeless Street Condition;NYPD;494
+Illegal Animal Kept as Pet;DOHMH;165
+Illegal Animal Sold;DOHMH;30
+Illegal Dumping;DSNY;3353
+Illegal Fireworks;NYC311-PRD;2
+Illegal Fireworks;NYPD;3048
+Illegal Parking;NYC311-PRD;356
+Illegal Parking;NYPD;83377
+Illegal Posting;DSNY;393
+Illegal Tree Damage;DPR;1363
+Incorrect Data;DSNY;18
+Indoor Air Quality;DOHMH;2396
+Indoor Sewage;DOHMH;424
+Industrial Waste;DEP;451
+Institution Disposal Complaint;DSNY;5
+Interior Demo;DOB;2
+Internal Code;DEP;1
+Investigations and Discipline (IAD);DOB;378
+Lead;DEP;3651
+Lifeguard;DOHMH;8
+LinkNYC;DOITT;17
+LinkNYC;OTI;16
+Literature Request;DSNY;7
+Litter Basket / Request;DSNY;390
+Litter Basket Complaint;DSNY;148
+Litter Basket Request;DSNY;397
+Lost Property;TLC;1143
+Lot Condition;DSNY;215
+Maintenance or Facility;DOB;1
+Maintenance or Facility;DPR;3443
+Mass Gathering Complaint;NYPD;24
+Mass Gathering Complaint;OSE;77
+Miscellaneous Categories;DOB;512
+Missed Collection;DSNY;5503
+Missed Collection (All Materials);DSNY;10632
+Mobile Food Vendor;DOHMH;692
+Mold;DOHMH;153
+Mosquitoes;DOHMH;130
+Municipal Parking Facility;DOT;1
+NONCONST;HPD;5537
+New Tree Request;DPR;7499
+Noise;DEP;18448
+Noise - Commercial;NYC311-PRD;50
+Noise - Commercial;NYPD;18900
+Noise - Helicopter;EDC;4998
+Noise - House of Worship;NYPD;413
+Noise - Park;NYC311-PRD;2
+Noise - Park;NYPD;1664
+Noise - Residential;NYC311-PRD;614
+Noise - Residential;NYPD;110801
+Noise - Street/Sidewalk;NYC311-PRD;29
+Noise - Street/Sidewalk;NYPD;38203
+Noise - Vehicle;NYC311-PRD;15
+Noise - Vehicle;NYPD;15323
+Noise Survey;3-1-1;441
+Non-Emergency Police Matter;NYC311-PRD;9
+Non-Emergency Police Matter;NYPD;6791
+Non-Residential Heat;DOHMH;469
+NonCompliance with Phased Reopening;NYPD;6
+NonCompliance with Phased Reopening;OSE;2137
+OEM Disabled Vehicle;3-1-1;35
+OUTSIDE BUILDING;HPD;366
+Obstruction;DSNY;1558
+Oil or Gas Spill;DSNY;2
+Other Enforcement;DSNY;1933
+Outdoor Dining;DOT;859
+Overflowing Litter Baskets;DSNY;249
+Overflowing Recycling Baskets;DSNY;2
+Overgrown Tree/Branches;DPR;7051
+PAINT - PLASTER;HPD;7791
+PAINT/PLASTER;HPD;19187
+PLUMBING;HPD;26416
+Paint/Plaster;HPD;68
+Panhandling;NYC311-PRD;6
+Panhandling;NYPD;837
+Parent Leadership;DOE;1
+Peeling Paint;DOHMH;3
+Pet Shop;DOHMH;38
+Plant;DEP;65
+Plumbing;DOB;1977
+Plumbing;HPD;40
+Poison Ivy;DOHMH;63
+Posting Advertisement;NYPD;98
+Private School Vaccine Mandate Non-Compliance;DOHMH;5
+Private or Charter School Reopening;OSE;55
+Public Assembly - Temporary;FDNY;1
+Public Payphone Complaint;DOITT;128
+Public Payphone Complaint;OTI;3
+Public Toilet;DOT;17
+Quality of Life;DOB;55
+Radioactive Material;DOHMH;5
+Real Time Enforcement;DOB;701
+Recycling Basket Complaint;DSNY;4
+Recycling Enforcement;DSNY;262
+Registration and Transfers;DOE;4
+Request Large Bulky Item Collection;DSNY;33328
+Request Xmas Tree Collection;DSNY;56
+Residential Disposal Complaint;DSNY;1145
+Retailer Complaint;DSNY;1
+Rodent;DOHMH;13798
+Root/Sewer/Sidewalk Condition;DPR;4299
+SAFETY;HPD;3140
+SRGOVG;DEP;1
+Safety;DOE;21
+Safety;HPD;30
+Sanitation Condition;DSNY;8785
+Sanitation Worker or Vehicle Complaint;DSNY;317
+Scaffold Safety;DOB;117
+School Maintenance;DOE;747
+Seasonal Collection;DSNY;22
+Senior Center Complaint;DFTA;87
+Sewer;DEP;12105
+Sewer Maintenance;DEP;104
+Sidewalk Condition;DOT;10970
+Smoking;DOHMH;1186
+Smoking or Vaping;DOHMH;123
+Snow;DSNY;1861
+Snow Removal;DSNY;89
+Snow or Ice;DSNY;379
+Special Enforcement;DOB;1
+Special Natural Area District (SNAD);DOB;42
+Special Operations;DOB;9
+Special Projects Inspection Team (SPIT);DOB;1821
+Squeegee;NYPD;3
+Stalled Sites;DOB;24
+Standing Water;DOHMH;808
+Standpipe - Mechanical;DSNY;1
+Storm;DSNY;102
+Street Condition;DOT;24461
+Street Light Condition;DOT;5469
+Street Sign - Damaged;DOT;1872
+Street Sign - Dangling;DOT;895
+Street Sign - Missing;DOT;1542
+Street Sweeping Complaint;DSNY;813
+Summer Camp;DOHMH;12
+Sustainability Enforcement;DOB;198
+Sweeping/Inadequate;DSNY;54
+Sweeping/Missed;DSNY;193
+Sweeping/Missed-Inadequate;DSNY;121
+Tanning;DOHMH;2
+Tattooing;DOHMH;51
+Taxi Complaint;TLC;3078
+Taxi Compliment;TLC;16
+Taxi Report;TLC;292
+Teaching/Learning/Instruction;DOE;16
+Tobacco or Non-Tobacco Sale;DOHMH;3
+Traffic;NYC311-PRD;10
+Traffic;NYPD;1158
+Traffic Signal Condition;DOT;35
+Traffic/Illegal Parking;NYPD;292
+Trans Fat;DOHMH;2
+Transfer Station Complaint;DSNY;2
+Transportation Provider Complaint;DFTA;1
+UNSANITARY CONDITION;HPD;29230
+Unleashed Dog;DOHMH;441
+Unlicensed Dog;DOHMH;4
+Unsanitary Animal Facility;DOHMH;33
+Unsanitary Animal Pvt Property;DOHMH;998
+Unsanitary Condition;HPD;194
+Unsanitary Pigeon Condition;DOHMH;360
+Unstable Building;DOB;2
+Uprooted Stump;DPR;73
+Urinating in Public;NYC311-PRD;1
+Urinating in Public;NYPD;263
+Vacant Lot;DSNY;628
+Vaccine Mandate Non-Compliance;DOHMH;205
+Vending;NYPD;915
+Vendor Enforcement;DSNY;1263
+Violation of Park Rules;DPR;780
+WATER LEAK;HPD;11787
+Water Conservation;DEP;1556
+Water Drainage;DOB;3
+Water Leak;HPD;92
+Water Maintenance;DEP;8
+Water Quality;DEP;642
+Water System;DEP;21692
+Window Guard;DOHMH;92
+Wood Pile Remaining;DPR;74
+X-Ray Machine/Equipment;DOHMH;8
+ZTESTINT;DEP;3

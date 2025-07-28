@@ -15,12 +15,8 @@ mod parse_csv;
 use constants::CITY_CONFIG;
 use parse_csv::readTypesCsv;
 
-
-use parse_csv::readReqCsv;
 use crate::ctable::HTMLTable;
-// use parse_csv::readReqCsvQ3;
-// use parse_csv::readReqCsvQ4;
-// use parse_csv::readReqCsvQ5;
+use parse_csv::readReqCsv;
 
 #[cfg(all(feature = "nyc", feature = "chi"))]
 compile_error!("Only one of `nyc` or `chi` features can be enabled");
@@ -72,18 +68,6 @@ fn main() -> Result<(), Box<dyn Error>> {
         &mut agencyByYearByMonthBySize, // for query 3
     )?;
 
-    // readReqCsvQ1(
-    //     CITY_CONFIG.requestsFilePath,
-    //     &mut typesByAcronym,
-    //     &mut typesByAgencyBySize,
-    // )?;
-
-    // // QUERY 2 - read csv files
-    // readReqCsvQ2(CITY_CONFIG.requestsFilePath, &mut boroughLatLngBySize)?;
-
-    // // QUERY 3 - read csv files
-    // readReqCsvQ3(CITY_CONFIG.requestsFilePath, &mut agencyByYearByMonthBySize)?;
-
     // ######## PRINTS ########
 
     //print for query1
@@ -123,7 +107,7 @@ fn main() -> Result<(), Box<dyn Error>> {
                 }
             }
         });
-  
+
     let mut table = HTMLTable::new("output_query1.html", vec!["type", "agency", "requests"])?;
 
     for (infr, agencies) in &typesByAgencyBySize {
@@ -153,7 +137,6 @@ fn main() -> Result<(), Box<dyn Error>> {
     }
 
     table.close()?;
-
 
     Ok(())
 }

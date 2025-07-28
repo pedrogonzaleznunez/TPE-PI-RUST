@@ -57,6 +57,7 @@ pub fn readReqCsv(
     typesByAgencyBySize: &mut BTreeMap<String, BTreeMap<String, i32>>,
     boroughLatLngBySize: &mut BTreeMap<(String, i32, i32), i32>,
     agencyByYearByMonthBySize: &mut BTreeMap<String, BTreeMap<i32, BTreeMap<i32, i32>>>,
+    promPerQuad: &mut Vec<Vec<u32>>,
 ) -> Result<(), Box<dyn Error>> {
     let root = std::env::current_dir()?;
     let path = root.join(filePath);
@@ -125,8 +126,58 @@ pub fn readReqCsv(
             .entry(month)
             .and_modify(|count: &mut i32| *count += 1)
             .or_insert(1);
+
+        // data for query4
+        // fils --> latitude
+        // cols --> longitude
+
+        // if promPerQuad.len() <= lat_quadrant as usize {
+        //     promPerQuad.resize( lat_quadrant , 0);
+
+        // };
     }
     Ok(())
+}
+
+struct Matrix<T> {
+    elems: Vec<Vec<T>>,
+}
+
+impl<T> Matrix<T> {
+    pub fn new() -> Matrix<T> {
+        Matrix { elems: vec![] }
+    }
+
+    pub fn insert(&mut self, x: usize, y: usize, elem: T) -> () {
+        // missing: Resize the entire matrix, keep track of size, handle negative indexes
+        self.elems
+            .get_mut(y)
+            .get_or_insert(&mut Vec::with_capacity(x))
+            .insert(x, elem);
+    }
+
+    pub fn getElem(&self, x: usize, y: usize) -> Option<&T> {
+        self.elems.get(y)?.get(x)
+    }
+}
+
+#[cfg(test)]
+mod tests {
+    use super::*;
+    #[test]
+    fn newMatrix() {
+        let mat: Matrix<i8> = Matrix::new();
+        assert_eq!(mat.getElem(0, 0), None);
+    }
+
+    #[test]
+    fn insert() {
+        let mut mat: Matrix<i8> = Matrix::new();
+        mat.insert(0, 0, 1);
+        assert_eq!(mat.getElem(0, 0), Some(&1));
+        mat.insert(1, 0, 2);
+        assert_eq!(mat.getElem(1, 0), Some(&2));
+    }
 }
 
 // aux method for query 2

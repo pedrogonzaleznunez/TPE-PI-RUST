@@ -1,6 +1,5 @@
 use std::ffi::CString;
 use std::io::Error;
-use std::usize;
 
 use libc::{c_char, c_uint, c_void};
 use std::result::Result;
@@ -13,7 +12,7 @@ unsafe extern "C" {
 
 pub struct HTMLTable {
     ptr: *mut c_void,
-    cols: i8,
+    cols: u8,
 }
 
 impl HTMLTable {
@@ -82,20 +81,19 @@ impl HTMLTable {
                     cols[6],
                     cols[7],
                 )),
-                8.. => Err("Cannot create table with more than 8 headers"),
+                9.. => Err("Cannot create table with more than 8 headers"),
             }
         };
 
-        if ptr.is_err() || ptr.unwrap().is_null() {
-            Err(Error::new(
+        match ptr {
+            Ok(p) if !p.is_null() => Ok(HTMLTable {
+                ptr: p,
+                cols: cols.len() as u8,
+            }),
+            _ => Err(Error::new(
                 std::io::ErrorKind::Other,
                 "Failed to create HTML table",
-            ))
-        } else {
-            Ok(HTMLTable {
-                ptr: ptr.unwrap(),
-                cols: columns.len() as i8,
-            })
+            )),
         }
     }
 
@@ -140,7 +138,7 @@ impl HTMLTable {
                     self.ptr, c_row[0], c_row[1], c_row[2], c_row[3], c_row[4], c_row[5], c_row[6],
                     c_row[7],
                 )),
-                8.. => Err(Error::new(
+                9.. => Err(Error::new(
                     std::io::ErrorKind::InvalidInput,
                     "Cannot add row with more than 8 elements",
                 )),

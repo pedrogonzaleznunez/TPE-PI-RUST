@@ -15,10 +15,8 @@ mod parse_csv;
 use constants::CITY_CONFIG;
 use parse_csv::readTypesCsv;
 
-use parse_csv::readReqCsvQ1;
-use parse_csv::readReqCsvQ2;
-use parse_csv::readReqCsvQ3;
 
+use parse_csv::readReqCsv;
 use crate::ctable::HTMLTable;
 // use parse_csv::readReqCsvQ3;
 // use parse_csv::readReqCsvQ4;
@@ -66,32 +64,52 @@ fn main() -> Result<(), Box<dyn Error>> {
         &mut typesByAgencyBySize,
     )?;
 
-    readReqCsvQ1(
+    readReqCsv(
         CITY_CONFIG.requestsFilePath,
-        &mut typesByAcronym,
-        &mut typesByAgencyBySize,
+        &mut typesByAcronym,            // for query 1
+        &mut typesByAgencyBySize,       // for query 1
+        &mut boroughLatLngBySize,       // for query 2
+        &mut agencyByYearByMonthBySize, // for query 3
     )?;
 
-    // QUERY 2 - read csv files
-    readReqCsvQ2(CITY_CONFIG.requestsFilePath, &mut boroughLatLngBySize)?;
+    // readReqCsvQ1(
+    //     CITY_CONFIG.requestsFilePath,
+    //     &mut typesByAcronym,
+    //     &mut typesByAgencyBySize,
+    // )?;
 
-    // QUERY 3 - read csv files
-    readReqCsvQ3(CITY_CONFIG.requestsFilePath, &mut agencyByYearByMonthBySize)?;
+    // // QUERY 2 - read csv files
+    // readReqCsvQ2(CITY_CONFIG.requestsFilePath, &mut boroughLatLngBySize)?;
+
+    // // QUERY 3 - read csv files
+    // readReqCsvQ3(CITY_CONFIG.requestsFilePath, &mut agencyByYearByMonthBySize)?;
 
     // ######## PRINTS ########
 
-    // print for query1
-    // typesByAgencyBySize.iter().for_each(|(infr, b)| {
-    //     b.iter()
-    //         .for_each(|(agency, v)| println!("{} ({}) - {}", infr, agency, v))
-    // });
+    //print for query1
+    typesByAgencyBySize.iter().for_each(|(infr, b)| {
+        b.iter()
+            .for_each(|(agency, v)| println!("{} ({}) - {}", infr, agency, v))
+    });
 
-    // print for query2
-    // boroughLatLngBySize
-    //     .iter()
-    //     .for_each(|((borough, lat, lng), v)| println!("{};{};{};{}", borough, lat, lng, v));
+    println!("----------------------------------");
+    println!("----------------------------------");
+    println!("----------------------------------");
+    println!("----------------------------------");
+    println!("----------------------------------");
 
-    // print for query3
+    //print for query2
+    boroughLatLngBySize
+        .iter()
+        .for_each(|((borough, lat, lng), v)| println!("{};{};{};{}", borough, lat, lng, v));
+
+    println!("----------------------------------");
+    println!("----------------------------------");
+    println!("----------------------------------");
+    println!("----------------------------------");
+    println!("----------------------------------");
+
+    //print for query3
     agencyByYearByMonthBySize
         .iter()
         .for_each(|(agency, year_map)| {
@@ -105,6 +123,7 @@ fn main() -> Result<(), Box<dyn Error>> {
                 }
             }
         });
+  
     let mut table = HTMLTable::new("output_query1.html", vec!["type", "agency", "requests"])?;
 
     for (infr, agencies) in &typesByAgencyBySize {
@@ -134,6 +153,7 @@ fn main() -> Result<(), Box<dyn Error>> {
     }
 
     table.close()?;
+
 
     Ok(())
 }

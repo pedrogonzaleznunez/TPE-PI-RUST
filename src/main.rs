@@ -7,6 +7,7 @@ use std::error::Error;
 use std::result::Result;
 
 mod constants;
+mod ctable;
 mod parse_csv;
 
 use constants::CITY_CONFIG;
@@ -14,6 +15,8 @@ use parse_csv::readTypesCsv;
 
 use parse_csv::readReqCsvQ1;
 use parse_csv::readReqCsvQ2;
+
+use crate::ctable::HTMLTable;
 // use parse_csv::readReqCsvQ3;
 // use parse_csv::readReqCsvQ4;
 // use parse_csv::readReqCsvQ5;
@@ -48,16 +51,35 @@ fn main() -> Result<(), Box<dyn Error>> {
     // QUERY 2 - read csv files
     readReqCsvQ2(CITY_CONFIG.requestsFilePath, &mut boroughLatLngBySize)?;
 
-    // print for query1
-    // typesByAgencyBySize.iter().for_each(|(infr, b)| {
-    //     b.iter()
-    //         .for_each(|(agency, v)| println!("{} ({}) - {}", infr, agency, v))
-    // });
+    let mut table = HTMLTable::new("output_query1.html", vec!["type", "agency", "requests"])?;
 
-    // print for query2
-    boroughLatLngBySize
-        .iter()
-        .for_each(|((borough, lat, lng), v)| println!("{};{};{};{}", borough, lat, lng, v));
+    for (infr, agencies) in &typesByAgencyBySize {
+        for (agency, count) in agencies {
+            table.add_row(vec![
+                infr.as_str(),
+                agency.as_str(),
+                count.to_string().as_str(),
+            ])?;
+        }
+    }
+
+    table.close()?;
+
+    table = HTMLTable::new(
+        "output_query2.html",
+        vec!["borough", "latitude", "longitude", "requests"],
+    )?;
+
+    for ((borough, lat, long), count) in &boroughLatLngBySize {
+        table.add_row(vec![
+            borough.as_str(),
+            lat.to_string().as_str(),
+            long.to_string().as_str(),
+            count.to_string().as_str(),
+        ])?;
+    }
+
+    table.close()?;
 
     Ok(())
 }

@@ -1,6 +1,7 @@
 fn main() {
     cc::Build::new()
         .file("src/ctable/htmlTable.c")
+        .flag("-Wno-sign-compare")
         .include("src/ctable")
         .compile("clibrary");
 

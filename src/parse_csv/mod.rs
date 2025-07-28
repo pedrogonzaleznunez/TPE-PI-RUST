@@ -142,3 +142,51 @@ fn getquadrantFromLatLng(lat: f64, lng: f64) -> (i32, i32) {
 
     (lat_quadrant, lng_quadrant)
 }
+
+// finds most recent year, and prints all the requests given per month
+pub fn readReqCsvQ3(
+    filePath: &str,
+    agencyByYearByMonthBySize: &mut BTreeMap<String, BTreeMap<i32, BTreeMap<i32, i32>>>,
+) -> Result<(), Box<dyn Error>> {
+    let root = std::env::current_dir()?;
+    let path = root.join(filePath);
+
+    let file = File::open(path)?;
+    let reader = BufReader::new(file);
+
+    for (i, line) in reader.lines().enumerate() {
+        if i == 0 {
+            continue;
+        }
+
+        let line = line?;
+
+        let fields: Vec<&str> = line.split(';').collect();
+
+        let agencyName: &str = fields[CITY_CONFIG.requestCSVFields.AgencyName as usize];
+
+        let date_parts: Vec<&str> = fields[CITY_CONFIG.requestCSVFields.CreatedDate as usize]
+            .split('-')
+            .collect();
+
+        let year: i32 = date_parts
+            .get(0)
+            .and_then(|s| s.parse::<i32>().ok())
+            .expect("Year must be a valid number");
+
+        let month: i32 = date_parts
+            .get(1)
+            .and_then(|s| s.parse::<i32>().ok())
+            .expect("Month must be a valid number");
+
+        agencyByYearByMonthBySize
+            .entry(agencyName.to_string())
+            .or_insert_with(BTreeMap::new)
+            .entry(year)
+            .or_insert_with(BTreeMap::new)
+            .entry(month)
+            .and_modify(|count: &mut i32| *count += 1)
+            .or_insert(1);
+    }
+    Ok(())
+}

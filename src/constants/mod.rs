@@ -42,7 +42,7 @@ pub const CITY_CONFIG: CityConfig = CityConfig {
         AgencyName: 1,
         Status: 2,
         CreatedDate: 3,
-        BoroughName: 4,
+        Borough: 4,
         Latitude: 5,
         Longitude: 6,
     },

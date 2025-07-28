@@ -9,14 +9,14 @@ use std::error::Error;
 use std::result::Result;
 
 mod constants;
+mod csv;
 mod ctable;
-mod parse_csv;
 
 use constants::CITY_CONFIG;
-use parse_csv::readTypesCsv;
+use csv::readTypesCsv;
 
 use crate::ctable::HTMLTable;
-use parse_csv::readReqCsv;
+use csv::readReqCsv;
 
 #[cfg(all(feature = "nyc", feature = "chi"))]
 compile_error!("Only one of `nyc` or `chi` features can be enabled");

@@ -10,17 +10,13 @@ mod constants;
 mod ctable;
 mod parse_csv;
 
-use std::ffi::CString;
-
 use constants::CITY_CONFIG;
 use parse_csv::readTypesCsv;
 
 use parse_csv::readReqCsvQ1;
 use parse_csv::readReqCsvQ2;
 
-use crate::ctable::addHTMLRow;
-use crate::ctable::closeHTMLTable;
-use crate::ctable::newTable;
+use crate::ctable::HTMLTable;
 // use parse_csv::readReqCsvQ3;
 // use parse_csv::readReqCsvQ4;
 // use parse_csv::readReqCsvQ5;
@@ -55,63 +51,35 @@ fn main() -> Result<(), Box<dyn Error>> {
     // QUERY 2 - read csv files
     readReqCsvQ2(CITY_CONFIG.requestsFilePath, &mut boroughLatLngBySize)?;
 
-    unsafe {
-        let mut table = newTable(
-            CString::new("output_query1.html").unwrap().as_ptr(),
-            3,
-            CString::new("type").unwrap().as_ptr(),
-            CString::new("agency").unwrap().as_ptr(),
-            CString::new("requests").unwrap().as_ptr(),
-        );
+    let mut table = HTMLTable::new("output_query1.html", vec!["type", "agency", "requests"])?;
 
-        for (infr, agencies) in &typesByAgencyBySize {
-            for (agency, count) in agencies {
-                addHTMLRow(
-                    table,
-                    CString::new(infr.as_str())
-                        .expect("Failed to create CString")
-                        .as_ptr(),
-                    CString::new(agency.as_str())
-                        .expect("Failed to create CString")
-                        .as_ptr(),
-                    CString::new(count.to_string())
-                        .expect("Failed to create CString")
-                        .as_ptr(),
-                );
-            }
+    for (infr, agencies) in &typesByAgencyBySize {
+        for (agency, count) in agencies {
+            table.add_row(vec![
+                infr.as_str(),
+                agency.as_str(),
+                count.to_string().as_str(),
+            ])?;
         }
-
-        closeHTMLTable(table);
-
-        table = newTable(
-            CString::new("output_query2.html").unwrap().as_ptr(),
-            4,
-            CString::new("borough").unwrap().as_ptr(),
-            CString::new("latitude").unwrap().as_ptr(),
-            CString::new("longitude").unwrap().as_ptr(),
-            CString::new("requests").unwrap().as_ptr(),
-        );
-
-        for ((borough, lat, long), count) in &boroughLatLngBySize {
-            addHTMLRow(
-                table,
-                CString::new(borough.as_str())
-                    .expect("Failed to create CString")
-                    .as_ptr(),
-                CString::new(lat.to_string())
-                    .expect("Failed to create CString")
-                    .as_ptr(),
-                CString::new(long.to_string())
-                    .expect("Failed to create CString")
-                    .as_ptr(),
-                CString::new(count.to_string())
-                    .expect("Failed to create CString")
-                    .as_ptr(),
-            );
-        }
-
-        closeHTMLTable(table);
     }
+
+    table.close()?;
+
+    table = HTMLTable::new(
+        "output_query2.html",
+        vec!["borough", "latitude", "longitude", "requests"],
+    )?;
+
+    for ((borough, lat, long), count) in &boroughLatLngBySize {
+        table.add_row(vec![
+            borough.as_str(),
+            lat.to_string().as_str(),
+            long.to_string().as_str(),
+            count.to_string().as_str(),
+        ])?;
+    }
+
+    table.close()?;
 
     Ok(())
 }

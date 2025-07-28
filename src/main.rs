@@ -53,6 +53,9 @@ fn main() -> Result<(), Box<dyn Error>> {
     let mut agencyByYearByMonthBySize: BTreeMap<String, BTreeMap<i32, BTreeMap<i32, i32>>> =
         BTreeMap::new();
 
+    // structures for query 4
+    let mut promPerQuad: Vec<Vec<u32>> = Vec::new();
+
     // QUERY 1 - read csv files
     readTypesCsv(
         CITY_CONFIG.typesFilePath,
@@ -66,6 +69,7 @@ fn main() -> Result<(), Box<dyn Error>> {
         &mut typesByAgencyBySize,       // for query 1
         &mut boroughLatLngBySize,       // for query 2
         &mut agencyByYearByMonthBySize, // for query 3
+        &mut promPerQuad,               // for query 4
     )?;
 
     // ######## PRINTS ########

@@ -1,0 +1,338 @@
+Complaint Type;Complaint Type Code
+NonCompliance with Phased Reopening;NCPR1035
+Air Quality;AQ100011
+Industrial Waste;IW152016
+Gas Station Discharge Lines;GSDL1027
+Teaching/Learning/Instruction;TLI16029
+Broken Muni Meter;BMM98017
+Overgrown Tree/Branches;OTB17023
+Legal Services Provider Complaint;LSPC1033
+School Maintenance;SM181018
+Hazardous Material;HM123018
+Beach/Pool/Sauna Complaint;BPSC9026
+Derelict Vehicles;DV186017
+Noise - Vehicle;NV935015
+Adopt-A-Basket;AAB16014
+Wayfinding;W1138010
+Highway Sign - Dangling;HSD10023
+Building Marshals office;BM106024
+LinkNYC;LNYC3007
+Public Assembly - Temporary;PAT62027
+Dumpster Complaint;DC471018
+Bike/Roller/Skate Chronic;BRSC1025
+Seasonal Collection;SC130019
+Plumbing;P9056008
+DSNY Internal;DSNYI013
+SRDE;SRDE1004
+BEST/Site Safety;BESTS016
+AHV Inspection Unit;AHVIU019
+Green Taxi Report;GTR12017
+Disorderly Youth;DY907016
+General Construction/Plumbing;GCP16029
+Summer Camp;SC825011
+Fire Alarm - New System;FANS1023
+Ferry Permit;FP850012
+DRIE;DRIE5004
+Ferry Complaint;FC332015
+Advocate-Business Tax;ABT16021
+Advocate - Other;AO591016
+Water Drainage;WD104014
+Electrical;E2446010
+Unsanitary Animal Pvt Property;UAPP9030
+Building/Use;BU718012
+STRUCTURAL;STRUC010
+PAINT/PLASTER;PAINT013
+Street Sign - Damaged;SSD14021
+Urinating in Public;UP162019
+Consumer Complaint;CC486018
+Rodent;R1083006
+Standpipe - Mechanical;SM999022
+Dispatched Taxi Compliment;DTC24026
+Commercial Disposal Complaint;CDC11029
+Illegal Animal - Sold/Kept;IASK9026
+Unsanitary Animal Facility;UAF80026
+Borough Office;BO583014
+Taxi Report;TR113011
+Violation of Park Rules;VPR17023
+Request Large Bulky Item Collection;RLBIC035
+DOF Property - Reduction Issue;DOFPR030
+Fire Alarm - Modification;FAM57025
+Vendor Enforcement;VE273018
+Cranes and Derricks;CD156019
+Fire Alarm - Reinspection;FAR18025
+Dirty Condition;DC182015
+Door/Window;DW130011
+Water Quality;WQ732013
+Standing Water;SW127014
+Unsanitary Pigeon Condition;UPC93027
+Calorie Labeling;CL917016
+Illegal Tree Damage;ITD16019
+Municipal Parking Facility;MPF13026
+Hazardous Materials;HM691019
+Radioactive Material;RM449020
+Incorrect Data;ID326014
+Derelict Bicycle;DB127016
+Single Occupancy Bathroom;SOB12025
+COVID-19 Non-essential Construction;COVID035
+Lifeguard;L6818009
+Missed Collection (All Materials);MCAM1033
+For Hire Vehicle Complaint;FHVC1026
+ATF;ATF16003
+Parent Leadership;PL863017
+Snow Removal;SR165012
+Window Guard;WG141012
+Illegal Dumping;ID818015
+Advocate-Foreclosure;AF106020
+Graffiti;G6637008
+Safety;S9708006
+Noise;N1637005
+Sprinkler - Mechanical;SM170022
+Institution Disposal Complaint;IDC15030
+Sewer Maintenance;SM847017
+Stalled Sites;SS167013
+Animal-Abuse;AA447012
+Street Sign - Missing;SSM96021
+UNSANITARY CONDITION;UNSAN020
+Elevator;E1181008
+ELEVATOR;ELEVA008
+Obstruction;O1539011
+Building Drinking Water Tank;BDWT1028
+Homeless Person Assistance;HPA53026
+DSNY Spillage;DSNYS013
+Collection Truck Noise;CTN55022
+Encampment;E1624010
+Unstable Building;UB169017
+Blocked Driveway;BD248016
+DOB Posted Notice or Order;DOBPN026
+Sweeping/Missed;SM588015
+ELECTRIC;ELECT008
+No Child Left Behind;NCLB2020
+Change Collection Schedule;CCS54026
+Literature Request;LR271018
+Highway Condition;HC953017
+Bus Stop Shelter Complaint;BSSC1026
+Employee Behavior;EB648017
+Street Light Condition;SLC17022
+Special Natural Area District (SNAD);SNADS036
+Non-Emergency Police Matter;NEPM1027
+Mosquitoes;M1375010
+Scaffold Safety;SS691015
+MSOTHER;MSOTH007
+Special Operations;SO172018
+Tattooing;T7278009
+Noise - Park;NP707012
+Illegal Posting;IP114015
+Other Enforcement;OE172017
+DEP Highway Condition;DEPHC021
+Smoking or Vaping;SV689017
+Portable Toilet;PT109015
+Noise - Street/Sidewalk;NSS51023
+Foam Ban Enforcement;FBE44020
+Green Taxi Complaint;GTC13020
+Construction Lead Dust;CLD11022
+Discipline and Suspension;DS175025
+DOF Literature Request;DOFLR022
+ZTESTINT;ZTEST008
+Heat/Hot Water;HHW53014
+Dead Animal;DA118011
+Litter Basket Request;LBR41021
+Noise - House of Worship;NHW60024
+APPLIANCE;APPLI009
+Recycling Basket Complaint;RBC17026
+DOF Parking - Payment Issue;DOFPP027
+Taxi Compliment;TC164015
+MOLD;MOLD1004
+Retailer Complaint;RC250018
+Bike Rack Condition;BRC80019
+Emergency Response Team (ERT);ERTER029
+Public Toilet;PT411013
+Non-Residential Heat;NRH17020
+Root/Sewer/Sidewalk Condition;RSSC6029
+SNW;SNW11003
+Posting Advertisement;PA410021
+Water System;WS977012
+Dead/Dying Tree;DDT42015
+Sidewalk Condition;SC142018
+DEP Street Condition;DEPSC020
+Noise - Helicopter;NH152018
+PAINT - PLASTER;PAINT015
+Harboring Bees/Wasps;HBW56020
+Tobacco or Non-Tobacco Sale;TNTS1027
+Litter Basket Complaint;LBC87023
+VACANT APARTMENT;VACAN016
+Poison Ivy;PI260010
+Hazmat Storage/Use;HSU17018
+Homeless Street Condition;HSC13025
+Public Payphone Complaint;PPC87025
+Lot Condition;LC155013
+SG-99;SG156005
+Food Establishment;FE156018
+Boilers;B4959007
+Overflowing Litter Baskets;OLB43026
+Appliance;A8146009
+Drinking Water;DW131014
+PLUMBING;PLUMB008
+Sustainability Enforcement;SE268026
+Internal Code;IC946013
+Traffic/Illegal Parking;TIP24023
+New Tree Request;NTR10016
+Quality of Life;QL927015
+FHV Licensee Complaint;FHVLC022
+LEAD;LEAD1004
+Dept of Investigations;DI212022
+Found Property;FP156014
+Asbestos/Garbage Nuisance;AGN14025
+General;G1022007
+Sweeping/Missed-Inadequate;SMI10026
+Storm;S1753005
+Bottled Water;BW439013
+Illegal Animal Kept as Pet;IAKP1026
+HEAT/HOT WATER;HEATH014
+DPR Internal;DPRI3012
+Facade Insp Safety Pgm;FISP1022
+Pet Shop;PS129008
+Overflowing Recycling Baskets;ORB15029
+Sweeping/Inadequate;SI363019
+Paint/Plaster;PP791013
+Uprooted Stump;US184014
+Taxi Licensee Complaint;TLC14023
+Sanitation Worker or Vehicle Complaint;SWVC1038
+Dirty Conditions;DC811016
+GENERAL CONSTRUCTION;GENER020
+Vending;V2682007
+Day Care;DC788008
+Wood Pile Remaining;WPR50019
+Illegal Parking;IP198015
+Oil or Gas Spill;OGS13016
+Leaning Bar;LB134011
+Water Leak;WL147010
+HEATING;HEATI007
+Taxi Complaint;TC108014
+Water Maintenance;WM132017
+Food Poisoning;FP473014
+Request Xmas Tree Collection;RXTC1028
+Lost Property;LP143013
+Open Flame Permit;OFP83017
+Construction Safety Enforcement;CSE17031
+Sanitation Condition;SC172020
+Water Conservation;WC165018
+Recycling Enforcement;RE132021
+Animal in a Park;AP119016
+Street Condition;SC822016
+AGENCY;AGENC006
+Snow or Ice;SI831011
+Damaged Tree;DT138012
+Tunnel Condition;TC182016
+FATF;FATF1004
+FLOORING/STAIRS;FLOOR015
+Broken Parking Meter;BPM83020
+Smoking;S9564007
+CONSTRUCTION;CONST012
+Trapping Pigeon;TP912015
+Bus Stop Shelter Placement;BSSP1026
+Abandoned Vehicle;AV167017
+Animal Facility - No Permit;AFNP3027
+Construction;C1648012
+Bench;B1606005
+Abandoned Bike;AB149014
+Highway Sign - Damaged;HSD50022
+GENERAL;GENER007
+Mobile Food Vendor;MFV70018
+Boiler;B6500006
+ZSYSTEST;ZSYST008
+Bike Rack;BR300009
+Homeless Encampment;HE154019
+Snow;S1235004
+Advocate-Commercial Exemptions;ACE14030
+Tanning;T1216007
+Private or Charter School Reopening;PCSR1035
+Maintenance or Facility;MF392023
+Registration and Transfers;RT109026
+Forensic Engineering;FE136020
+Dispatched Taxi Complaint;DTC66025
+Building Marshal's Office;BMO13025
+FCST;FCST7004
+Rangehood;R3827009
+Executive Inspections;EI121021
+Plant;P6842005
+Street Sweeping Complaint;SSC17025
+Ferry Inquiry;FI106013
+Traffic Signal Condition;TSC54024
+Taxpayer Advocate Inquiry;TAI11025
+Building Condition;BC106018
+Advocate - Levy;AL107015
+Drinking;D1426008
+Panhandling;P1767011
+Senior Center Complaint;SCC99023
+Private School Vaccine Mandate Non-Compliance;PSVMN045
+Trans Fat;TF770009
+Asbestos;A4297008
+Derelict Vehicle;DV135016
+Highway Sign - Missing;HSM84022
+Vacant Lot;VL731010
+Noise - Residential;NR197019
+Face Covering Violation;FCV17023
+DOF Property - Payment Issue;DOFPP028
+Litter Basket / Request;LBR44023
+E-Scooter;ES769009
+Cooling Tower;CT172013
+Missed Collection;MC112017
+Advocate - Lien;AL647015
+Lead;L6319004
+Indoor Air Quality;IAQ11018
+WATER LEAK;WATER010
+City Vehicle Placard Complaint;CVPC1030
+Sewer;S1723005
+Illegal Animal Sold;IAS20019
+Fire Alarm - Replacement;FAR17024
+Electronics Waste;EW151017
+Transportation Provider Complaint;TPC23033
+Dead Tree;DT126009
+Special Projects Inspection Team (SPIT);SPITS039
+Unleashed Dog;UD285013
+Mass Gathering Complaint;MGC15024
+X-Ray Machine/Equipment;XRME1023
+Public Assembly;PA139015
+DOOR/WINDOW;DOORW011
+Flooring/Stairs;FS157015
+Electronics Waste Appointment;EWA17029
+Mold;M1743004
+Request Changes - A.S.P.;RCASP024
+NONCONST;NONCO008
+Noise - Commercial;NC110018
+OUTSIDE BUILDING;OUTSI016
+Unsanitary Condition;UC528020
+Advocate-Personal Exemptions;APE36028
+Outdoor Dining;OD158014
+For Hire Vehicle Report;FHVR7023
+Indoor Sewage;IS293013
+Animal Abuse;AA789012
+Bridge Condition;BC313016
+SRGOVG;SRGOV006
+Investigations and Discipline (IAD);IDIAD035
+DEP Sidewalk Condition;DEPSC022
+Health;H1038006
+OEM Disabled Vehicle;OEMDV020
+Injured Wildlife;IW183016
+Traffic;T9923007
+Outside Building;OB146016
+Peeling Paint;PP131013
+Electric;E1113008
+Transfer Station Complaint;TSC10026
+Curb Condition;CC339014
+Noise Survey;NS183012
+Squeegee;S9330008
+Vaccine Mandate Non-Compliance;VMNC1030
+Benefit Card Replacement;BCR16024
+Special Enforcement;SE181019
+SAFETY;SAFET006
+Drug Activity;DA138013
+Street Sign - Dangling;SSD16022
+Interior Demo;ID262013
+Illegal Fireworks;IF139017
+Residential Disposal Complaint;RDC28030
+Unlicensed Dog;UD167014
+Facades;F1679007
+Miscellaneous Categories;MC828024
+Real Time Enforcement;RTE12021
+Advocate-UBT;AUBT1012

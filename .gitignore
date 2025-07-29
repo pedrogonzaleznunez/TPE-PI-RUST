@@ -4,14 +4,16 @@
 !*.*
 
 /target
-/resources
+/resources/*
 
 # Ignore all .csv and .html files
 *.csv
 *.html
-# keep those in fixtures directory
+# keep those in fixtures & first_hundred_requests directories
 !fixtures/**/*.csv
 !fixtures/**/*.html
+!/resources/first_hundred_requests
+!/resources/first_hundred_requests/*
 
 # macOS
 .DS_Store

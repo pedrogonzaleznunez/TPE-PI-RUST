@@ -29,6 +29,11 @@ impl std::str::FromStr for Status {
             "Open" => Ok(Status::Open),
             "In Progress" => Ok(Status::InProgress),
             "Closed" => Ok(Status::Closed),
+            "Completed" => Ok(Status::Closed), // assuming "Completed" is treated as "Closed"
+            "Canceled" => Ok(Status::InProgress), // assuming "Canceled" is treated as "InProgress"
+            "Started" => Ok(Status::InProgress), // assuming "Started" is treated as "InProgress"
+            "Pending" => Ok(Status::InProgress), // assuming "Pending" is treated as "InProgress"
+            "Assigned" => Ok(Status::InProgress), // assuming "Assigned" is treated as "InProgress"
             _ => Err(()),
         }
     }
@@ -128,6 +133,8 @@ pub fn readReqCsv(
     typesByAgencyBySize: &mut BTreeMap<String, BTreeMap<String, i32>>,
     boroughLatLngBySize: &mut BTreeMap<(String, i32, i32), i32>,
     agencyByYearByMonthBySize: &mut BTreeMap<String, BTreeMap<i32, BTreeMap<i32, i32>>>,
+    fromToDates: &mut Vec<i32>,
+    promPerQuad: &mut BTreeMap<(u32, u32), i32>,
 ) -> Result<()> {
     let csv_file = CSVFile {
         path: PathBuf::from(filePath),
@@ -192,36 +199,37 @@ pub fn readReqCsv(
                 .entry(month)
                 .and_modify(|count: &mut i32| *count += 1)
                 .or_insert(1);
+
+            // data for query4
+
+            match fromToDates.len() as i32 {
+                1 => {
+                    // = 1 one arg --> toDate
+                    if year <= fromToDates[0] {
+                        promPerQuad
+                            .entry((lat_quadrant as u32, lng_quadrant as u32))
+                            .and_modify(|count: &mut i32| *count += 1)
+                            .or_insert(1);
+                    }
+                }
+                2 => {
+                    // = 2 two args --> fromDate and toDate
+                    if year >= fromToDates[0] && year <= fromToDates[1] {
+                        promPerQuad
+                            .entry((lat_quadrant as u32, lng_quadrant as u32))
+                            .and_modify(|count: &mut i32| *count += 1)
+                            .or_insert(1);
+                    }
+                }
+                _ => {
+                    // nothing to do crazy piter
+                }
+            }
         }
     })?;
 
     Ok(())
 }
-
-// struct Matrix<T> {
-//     elems: Vec<Vec<T>>,
-// }
-
-// impl<T> Matrix<T> {
-//     pub fn new() -> Matrix<T> {
-//         Matrix { elems: vec![] }
-//     }
-
-//     pub fn insert(&mut self, x: usize, y: usize, elem: T) -> () {
-//         // missing: Resize the entire matrix, keep track of size, handle negative indexes
-//         if (y > self.elems.len()) {
-//             self.elems.resize_with(y + 1, Default::default);
-//         }
-//         if (x > self.elems[y].len()) {
-//             self.elems[y].resize(x + 1, );
-//         }
-//         self.elems[y][x] = elem;
-//     }
-
-//     pub fn getElem(&self, x: usize, y: usize) -> Option<&T> {
-//         self.elems.get(y)?.get(x)
-//     }
-// }
 
 // aux method for query 2
 fn getquadrantFromLatLng(lat: f64, lng: f64) -> (i32, i32) {
@@ -237,21 +245,6 @@ mod tests {
     use super::*;
     use std::fs::read_to_string;
     use temp_dir::TempDir;
-
-    // #[test]
-    // fn newMatrix() {
-    //     let mat: Matrix<i8> = Matrix::new();
-    //     assert_eq!(mat.getElem(0, 0), None);
-    // }
-
-    // #[test]
-    // fn insert() {
-    //     let mut mat: Matrix<i8> = Matrix::new();
-    //     mat.insert(0, 0, 1);
-    //     assert_eq!(mat.getElem(0, 0), Some(&1));
-    //     mat.insert(1, 0, 2);
-    //     assert_eq!(mat.getElem(1, 0), Some(&2));
-    // }
 
     #[test]
     fn write_csv() -> Result<()> {

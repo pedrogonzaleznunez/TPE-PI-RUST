@@ -40,6 +40,7 @@ fn main() -> Result<(), Box<dyn Error>> {
     match args_count {
         0..=1 => {
             eprintln!("Error: Not enough arguments");
+            return Err("Not enough arguments".into());
         }
         2 => {
             if validateYear(&args[1]).is_err() {

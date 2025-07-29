@@ -17,14 +17,9 @@ enum TypesFields {
 
 #[derive(Debug, PartialEq, Eq)]
 enum Status {
-    InProgress, // from nyc
-    Closed,     // from nyc
-    Asisgned,   // from nyc
-    Pending,    // from nyc
-    Started,    // from nyc
-    Open,       //from nyc & chi
-    Canceled,   // from chi
-    Completed,  // from chi
+    InProgress,
+    Closed,
+    Open,
 }
 
 impl std::str::FromStr for Status {
@@ -34,11 +29,11 @@ impl std::str::FromStr for Status {
             "Open" => Ok(Status::Open),
             "In Progress" => Ok(Status::InProgress),
             "Closed" => Ok(Status::Closed),
-            "Assigned" => Ok(Status::Asisgned),
-            "Pending" => Ok(Status::Pending),
-            "Started" => Ok(Status::Started),
-            "Canceled" => Ok(Status::Canceled),
-            "Completed" => Ok(Status::Completed),
+            "Completed" => Ok(Status::Closed), // assuming "Completed" is treated as "Closed"
+            "Canceled" => Ok(Status::InProgress), // assuming "Canceled" is treated as "InProgress"
+            "Started" => Ok(Status::InProgress), // assuming "Started" is treated as "InProgress"
+            "Pending" => Ok(Status::InProgress), // assuming "Pending" is treated as "InProgress"
+            "Assigned" => Ok(Status::InProgress), // assuming "Assigned" is treated as "InProgress"
             _ => Err(()),
         }
     }

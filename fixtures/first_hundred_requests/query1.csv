@@ -1,0 +1,45 @@
+type;agency;requests
+APPLIANCE;HPD;1
+Air Quality;DEP;1
+Blocked Driveway;NYPD;4
+Borough Office;DOB;1
+Building/Use;DOB;1
+Consumer Complaint;DCWP;2
+Curb Condition;DOT;2
+Damaged Tree;DPR;1
+Derelict Vehicles;DSNY;1
+Dirty Conditions;DSNY;1
+ELECTRIC;HPD;1
+Elevator;DOB;1
+For Hire Vehicle Complaint;TLC;1
+GENERAL CONSTRUCTION;HPD;3
+General Construction/Plumbing;DOB;3
+HEAT/HOT WATER;HPD;6
+HEATING;HPD;2
+Illegal Dumping;DSNY;1
+Illegal Parking;NYPD;6
+Lead;DEP;1
+Missed Collection (All Materials);DSNY;1
+New Tree Request;DPR;1
+Noise;DEP;2
+Noise - Commercial;NYPD;4
+Noise - Residential;NYPD;10
+Noise - Street/Sidewalk;NYPD;4
+Noise - Vehicle;NYPD;2
+Non-Emergency Police Matter;NYPD;1
+Overgrown Tree/Branches;DPR;2
+PAINT - PLASTER;HPD;1
+PAINT/PLASTER;HPD;3
+PLUMBING;HPD;3
+Plumbing;DOB;2
+Request Large Bulky Item Collection;DSNY;2
+Sanitation Condition;DSNY;1
+School Maintenance;DOE;1
+Sewer;DEP;2
+Sidewalk Condition;DOT;1
+Street Condition;DOT;4
+Street Light Condition;DOT;1
+UNSANITARY CONDITION;HPD;4
+WATER LEAK;HPD;1
+Water Conservation;DEP;1
+Water System;DEP;4

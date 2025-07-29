@@ -61,6 +61,7 @@ fn main() -> Result<(), Box<dyn Error>> {
         }
         4..=usize::MAX => {
             eprintln!("Error: Too many arguments");
+            std::process::exit(1);
         }
         _ => {
             eprintln!("Error: Invalid number of arguments");

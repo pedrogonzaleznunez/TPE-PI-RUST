@@ -20,8 +20,8 @@ pub struct CityConfig {
 
 #[cfg(feature = "nyc")]
 pub const CITY_CONFIG: CityConfig = CityConfig {
-    typesFilePath: "resources/Dataset Alumnos/typesNYC.csv",
-    requestsFilePath: "resources/Dataset Alumnos/million/requestsNYC.csv",
+    typesFilePath: "resources/first_hundred_requests/typesNYC.csv",
+    requestsFilePath: "resources/first_hundred_requests/requestsNYC.csv",
     requestCSVFields: RequestCSVFields {
         CreatedDate: 0,
         AgencyName: 1,
@@ -35,8 +35,8 @@ pub const CITY_CONFIG: CityConfig = CityConfig {
 
 #[cfg(feature = "chi")]
 pub const CITY_CONFIG: CityConfig = CityConfig {
-    typesFilePath: "resources/Dataset Alumnos/typesCHI.csv",
-    requestsFilePath: "resources/Dataset Alumnos/million/requestsCHI.csv",
+    typesFilePath: "resources/first_hundred_requests/typesCHI.csv",
+    requestsFilePath: "resources/first_hundred_requests/requestsCHI.csv",
     requestCSVFields: RequestCSVFields {
         Acronym: 0,
         AgencyName: 1,

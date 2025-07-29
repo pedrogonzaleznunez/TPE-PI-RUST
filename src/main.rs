@@ -3,20 +3,22 @@
 use std::collections::BTreeMap;
 use std::collections::HashMap;
 
-use std::env;
+// use std::env;
 
 use std::error::Error;
+use std::path::PathBuf;
 use std::result::Result;
 
 mod constants;
+mod csv;
 mod ctable;
-mod parse_csv;
 
 use constants::CITY_CONFIG;
-use parse_csv::readTypesCsv;
+use ctable::HTMLTable;
 
-use crate::ctable::HTMLTable;
-use parse_csv::readReqCsv;
+use csv::CSVFile;
+use csv::readReqCsv;
+use csv::readTypesCsv;
 
 #[cfg(all(feature = "nyc", feature = "chi"))]
 compile_error!("Only one of `nyc` or `chi` features can be enabled");
@@ -26,7 +28,7 @@ compile_error!("`nyc` or `chi` must be selected");
 
 fn main() -> Result<(), Box<dyn Error>> {
     // get command line arguments
-    let args: Vec<String> = env::args().collect();
+    // let args: Vec<String> = env::args().collect();
 
     // println!("Program arguments: {:?}", args);
     // println!("args count: {}", args.len());
@@ -72,46 +74,65 @@ fn main() -> Result<(), Box<dyn Error>> {
         &mut promPerQuad,               // for query 4
     )?;
 
-    // ######## PRINTS ########
+    // ######## Writes to output files ########
 
-    //print for query1
-    typesByAgencyBySize.iter().for_each(|(infr, b)| {
-        b.iter()
-            .for_each(|(agency, v)| println!("{} ({}) - {}", infr, agency, v))
+    // ======= Query 1 =======
+    let csv_file_q1 = CSVFile {
+        path: PathBuf::from("query1.csv"),
+    };
+    let rows_q1 = typesByAgencyBySize.iter().flat_map(|(infr, agencies)| {
+        agencies
+            .iter()
+            .map(|(agency, count)| ([infr, agency, count] as [&dyn std::fmt::Display; 3]))
     });
 
-    println!("----------------------------------");
-    println!("----------------------------------");
-    println!("----------------------------------");
-    println!("----------------------------------");
-    println!("----------------------------------");
+    csv_file_q1.write_file(&vec!["type", "agency", "requests"], rows_q1)?;
+    // ======= END Query 1 =======
 
-    //print for query2
-    boroughLatLngBySize
+    // ======= Query 2 =======
+    let csv_file_q2 = CSVFile {
+        path: PathBuf::from("query2.csv"),
+    };
+    let rows_q2 = boroughLatLngBySize
         .iter()
-        .for_each(|((borough, lat, lng), v)| println!("{};{};{};{}", borough, lat, lng, v));
+        .map(|((borough, lat, long), count)| {
+            [borough, lat, long, count] as [&dyn std::fmt::Display; 4]
+        });
+    csv_file_q2.write_file(
+        &vec!["neighborhood", "quatLat", "quadLon", "request"],
+        rows_q2,
+    )?;
+    // ======= END Query 2 =======
 
-    println!("----------------------------------");
-    println!("----------------------------------");
-    println!("----------------------------------");
-    println!("----------------------------------");
-    println!("----------------------------------");
-
-    //print for query3
-    agencyByYearByMonthBySize
+    // ======= Query 3 =======
+    let csv_file_q3 = CSVFile {
+        path: PathBuf::from("query3.csv"),
+    };
+    let rows_q3 = agencyByYearByMonthBySize
         .iter()
-        .for_each(|(agency, year_map)| {
-            if let Some((year, month_map)) = year_map.iter().next_back() {
-                let mut ytd = 0;
-                for month in 1..=12 {
-                    if let Some(count) = month_map.get(&month) {
-                        ytd += count;
-                        println!("{};{};{};{}", agency, year, month, ytd);
-                    }
-                }
-            }
+        .flat_map(move |(agency, year_map)| {
+            year_map.iter().flat_map(move |(year, month_resolved_map)| {
+                month_resolved_map
+                    .iter()
+                    .scan(0, move |state, (month, ytd)| {
+                        *state += ytd;
+                        Some(((agency, year, month, *state), *state))
+                    })
+                    .map(move |((agency, year, month, ytd), _)| {
+                        [
+                            Box::new(agency),
+                            Box::new(year),
+                            Box::new(month),
+                            Box::new(ytd),
+                        ] as [Box<dyn std::fmt::Display>; 4]
+                    })
+            })
         });
 
+    csv_file_q3.write_file(&vec!["agency", "year", "month", "resolvedYTD"], rows_q3)?;
+    // ======= END Query 3 =======
+
+    // HTML output 👇
     let mut table = HTMLTable::new("output_query1.html", vec!["type", "agency", "requests"])?;
 
     for (infr, agencies) in &typesByAgencyBySize {

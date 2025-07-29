@@ -33,7 +33,7 @@ fn main() -> Result<(), Box<dyn Error>> {
     let args: Vec<String> = env::args().collect();
     let args_count = args.len();
     let mut fromToDates: Vec<i32> = Vec::new();
-  
+
     // argument validations
     match args_count {
         0..=1 => {
@@ -107,7 +107,6 @@ fn main() -> Result<(), Box<dyn Error>> {
         agencies
             .iter()
             .map(|(agency, count)| [infr, agency, count] as [&dyn std::fmt::Display; 3])
-
     });
 
     csv_file_q1.write_file(&vec!["type", "agency", "requests"], rows_q1)?;
@@ -183,7 +182,6 @@ fn main() -> Result<(), Box<dyn Error>> {
 
     csv_file_q4.write_file(&vec!["quadLat", "quadLon", "resolvedAvg"], rows_q4)?;
     // ======= END Query 4 =======
-
 
     // HTML output 👇
     let mut table = HTMLTable::new("output_query1.html", vec!["type", "agency", "requests"])?;

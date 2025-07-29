@@ -17,9 +17,14 @@ enum TypesFields {
 
 #[derive(Debug, PartialEq, Eq)]
 enum Status {
-    InProgress,
-    Closed,
-    Open,
+    InProgress, // from nyc
+    Closed,     // from nyc
+    Asisgned,   // from nyc
+    Pending,    // from nyc
+    Started,    // from nyc
+    Open,       //from nyc & chi
+    Canceled,   // from chi
+    Completed,  // from chi
 }
 
 impl std::str::FromStr for Status {
@@ -29,6 +34,11 @@ impl std::str::FromStr for Status {
             "Open" => Ok(Status::Open),
             "In Progress" => Ok(Status::InProgress),
             "Closed" => Ok(Status::Closed),
+            "Assigned" => Ok(Status::Asisgned),
+            "Pending" => Ok(Status::Pending),
+            "Started" => Ok(Status::Started),
+            "Canceled" => Ok(Status::Canceled),
+            "Completed" => Ok(Status::Completed),
             _ => Err(()),
         }
     }
@@ -130,7 +140,6 @@ pub fn readReqCsv(
     agencyByYearByMonthBySize: &mut BTreeMap<String, BTreeMap<i32, BTreeMap<i32, i32>>>,
     fromToDates: &mut Vec<i32>,
     promPerQuad: &mut BTreeMap<(u32, u32), i32>,
-
 ) -> Result<()> {
     let csv_file = CSVFile {
         path: PathBuf::from(filePath),
@@ -221,7 +230,6 @@ pub fn readReqCsv(
                     // nothing to do crazy piter
                 }
             }
-
         }
     })?;
 

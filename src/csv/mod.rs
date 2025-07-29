@@ -6,7 +6,7 @@ use std::io::{BufRead, BufReader, LineWriter, Result, Write};
 use std::collections::BTreeMap;
 use std::collections::HashMap;
 
-use std::path::{Path, PathBuf};
+use std::path::PathBuf;
 
 use super::constants::CITY_CONFIG;
 
@@ -15,8 +15,27 @@ enum TypesFields {
     Acronym = 1,
 }
 
-struct CSVFile {
-    path: PathBuf,
+#[derive(Debug, PartialEq, Eq)]
+enum Status {
+    InProgress,
+    Closed,
+    Open,
+}
+
+impl std::str::FromStr for Status {
+    type Err = ();
+    fn from_str(s: &str) -> std::result::Result<Self, Self::Err> {
+        match s {
+            "Open" => Ok(Status::Open),
+            "In Progress" => Ok(Status::InProgress),
+            "Closed" => Ok(Status::Closed),
+            _ => Err(()),
+        }
+    }
+}
+
+pub struct CSVFile {
+    pub path: PathBuf,
 }
 
 impl CSVFile {
@@ -40,18 +59,33 @@ impl CSVFile {
         Ok(())
     }
 
-    pub fn write_file<'a, I: Iterator<Item = Vec<&'a str>> + 'a>(
-        &self,
-        headers: Vec<&str>,
-        data: I,
-    ) -> Result<()> {
+    pub fn write_file<'a, Iter, Row, D>(&self, headers: &[&str], data: Iter) -> std::io::Result<()>
+    where
+        Iter: IntoIterator<Item = Row>,
+        Row: IntoIterator<Item = D>,
+        D: std::fmt::Display,
+    {
         let path = self.getPath()?;
         let file = File::create(path)?;
         let mut writer = LineWriter::new(file);
         writeln!(writer, "{}", headers.join(";"))?;
-        for row in data {
-            writeln!(writer, "{}", row.join(";"))?;
+
+        let mut data_iter = data.into_iter().peekable();
+
+        while let Some(row) = data_iter.next() {
+            let mut iter = row.into_iter().peekable();
+            while let Some(cell) = iter.next() {
+                write!(writer, "{}", cell)?;
+                if iter.peek().is_some() {
+                    write!(writer, ";")?;
+                }
+            }
+
+            if data_iter.peek().is_some() {
+                writeln!(writer)?;
+            }
         }
+
         writer.flush()?;
         Ok(())
     }
@@ -130,6 +164,10 @@ pub fn readReqCsv(
             .get(acronym)
             .expect("Type name must be defined");
 
+        let status: Status = fields[CITY_CONFIG.requestCSVFields.Status as usize]
+            .parse()
+            .expect("Status cannot be parsed");
+
         // data for query1
         typesByAgencyBySize
             .entry(typeName.to_string())
@@ -144,15 +182,17 @@ pub fn readReqCsv(
             .and_modify(|count: &mut i32| *count += 1)
             .or_insert(1);
 
-        // data for query3
-        agencyByYearByMonthBySize
-            .entry(agencyName.to_string())
-            .or_insert_with(BTreeMap::new)
-            .entry(year)
-            .or_insert_with(BTreeMap::new)
-            .entry(month)
-            .and_modify(|count: &mut i32| *count += 1)
-            .or_insert(1);
+        if status == Status::Closed {
+            // data for query3
+            agencyByYearByMonthBySize
+                .entry(agencyName.to_string())
+                .or_insert_with(BTreeMap::new)
+                .entry(year)
+                .or_insert_with(BTreeMap::new)
+                .entry(month)
+                .and_modify(|count: &mut i32| *count += 1)
+                .or_insert(1);
+        }
     })?;
 
     Ok(())
@@ -184,10 +224,10 @@ mod tests {
             vec!["Row 2 Col 1", "Row 2 Col 2"],
         ]
         .into_iter();
-        csv_file.write_file(vec!["Header 1", "Header 2"], iter)?;
+        csv_file.write_file(&vec!["Header 1", "Header 2"], iter)?;
         assert_eq!(
             read_to_string(csv_file.getPath().unwrap()).unwrap(),
-            "Header 1;Header 2\nRow 1 Col 1;Row 1 Col 2\nRow 2 Col 1;Row 2 Col 2\n"
+            "Header 1;Header 2\nRow 1 Col 1;Row 1 Col 2\nRow 2 Col 1;Row 2 Col 2"
         );
         Ok(())
     }

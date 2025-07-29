@@ -128,6 +128,8 @@ pub fn readReqCsv(
     typesByAgencyBySize: &mut BTreeMap<String, BTreeMap<String, i32>>,
     boroughLatLngBySize: &mut BTreeMap<(String, i32, i32), i32>,
     agencyByYearByMonthBySize: &mut BTreeMap<String, BTreeMap<i32, BTreeMap<i32, i32>>>,
+    fromToDates: &mut Vec<i32>,
+    promPerQuad: &mut BTreeMap<(u32, u32), i32>,
 ) -> Result<()> {
     let csv_file = CSVFile {
         path: PathBuf::from(filePath),
@@ -190,6 +192,37 @@ pub fn readReqCsv(
                 .entry(year)
                 .or_insert_with(BTreeMap::new)
                 .entry(month)
+                .and_modify(|count: &mut i32| *count += 1)
+                .or_insert(1);
+
+            // data for query4
+
+            match fromToDates.len() as i32 {
+                1 => {
+                    // = 1 one arg --> toDate
+                    if year <= fromToDates[0] {
+                        promPerQuad
+                            .entry((lat_quadrant as u32, lng_quadrant as u32))
+                            .and_modify(|count: &mut i32| *count += 1)
+                            .or_insert(1);
+                    }
+                }
+                2 => {
+                    // = 2 two args --> fromDate and toDate
+                    if year >= fromToDates[0] && year <= fromToDates[1] {
+                        promPerQuad
+                            .entry((lat_quadrant as u32, lng_quadrant as u32))
+                            .and_modify(|count: &mut i32| *count += 1)
+                            .or_insert(1);
+                    }
+                }
+                _ => {
+                    // nothing to do crazy piter
+                }
+            }
+
+            promPerQuad
+                .entry((lat_quadrant as u32, lng_quadrant as u32))
                 .and_modify(|count: &mut i32| *count += 1)
                 .or_insert(1);
         }

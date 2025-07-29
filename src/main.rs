@@ -5,7 +5,9 @@ use std::collections::HashMap;
 
 // use std::env;
 
+use std::env;
 use std::error::Error;
+use std::i32;
 use std::path::PathBuf;
 use std::result::Result;
 
@@ -27,22 +29,42 @@ compile_error!("Only one of `nyc` or `chi` features can be enabled");
 compile_error!("`nyc` or `chi` must be selected");
 
 fn main() -> Result<(), Box<dyn Error>> {
-    // get command line arguments
-    // let args: Vec<String> = env::args().collect();
+    let args: Vec<String> = env::args().collect();
+    let args_count = args.len();
+    let mut fromToDates: Vec<i32> = Vec::new();
 
     // println!("Program arguments: {:?}", args);
-    // println!("args count: {}", args.len());
-    // // argument validations
-    // if args.len() < 2 || args.len() > 4 {
-    //     eprintln!("Usage: ./program_name <fromDate> <toDate> ");
-    //     return Err("Not enough arguments".into());
-    // } else if args[1].parse::<i32>().is_err() || args[2].parse::<i32>().is_err() {
-    //     eprintln!("Error: <fromDate> and <toDate> must be valid years");
-    //     return Err("Invalid year format".into());
-    // } else if args[2] < args[1] {
-    //     eprintln!("Error: <toDate> must be greater than or equal to <fromDate>");
-    //     return Err("Invalid date range".into());
-    // }
+    // println!("args count: {}", args_count);
+
+    // argument validations
+    match args_count {
+        0..=1 => {
+            eprintln!("Error: Not enough arguments");
+        }
+        2 => {
+            if validateYear(&args[1]).is_err() {
+                eprintln!("Error: <toDate> must be a valid year");
+            } else {
+                fromToDates.push(args[1].parse::<i32>().unwrap());
+            }
+        }
+        3 => {
+            if validateYear(&args[1]).is_err() || validateYear(&args[2]).is_err() {
+                eprintln!("Error: <fromDate> and <toDate> must be valid years");
+            } else if &args[1] > &args[2] {
+                eprintln!("Error: <fromDate> must be less than or equal to <toDate>");
+            } else {
+                fromToDates.push(args[1].parse::<i32>().unwrap());
+                fromToDates.push(args[2].parse::<i32>().unwrap());
+            }
+        }
+        4..=usize::MAX => {
+            eprintln!("Error: Too many arguments");
+        }
+        _ => {
+            eprintln!("Error: Invalid number of arguments");
+        }
+    }
 
     // structures for query 1
     let mut typesByAcronym: HashMap<String, String> = HashMap::new();
@@ -56,7 +78,7 @@ fn main() -> Result<(), Box<dyn Error>> {
         BTreeMap::new();
 
     // structures for query 4
-    let mut promPerQuad: Vec<Vec<u32>> = Vec::new();
+    let mut promPerQuad: BTreeMap<(u32, u32), i32> = BTreeMap::new();
 
     // QUERY 1 - read csv files
     readTypesCsv(
@@ -71,6 +93,7 @@ fn main() -> Result<(), Box<dyn Error>> {
         &mut typesByAgencyBySize,       // for query 1
         &mut boroughLatLngBySize,       // for query 2
         &mut agencyByYearByMonthBySize, // for query 3
+        &mut fromToDates,               // prog args for queries 4,5
         &mut promPerQuad,               // for query 4
     )?;
 
@@ -83,7 +106,7 @@ fn main() -> Result<(), Box<dyn Error>> {
     let rows_q1 = typesByAgencyBySize.iter().flat_map(|(infr, agencies)| {
         agencies
             .iter()
-            .map(|(agency, count)| ([infr, agency, count] as [&dyn std::fmt::Display; 3]))
+            .map(|(agency, count)| [infr, agency, count] as [&dyn std::fmt::Display; 3])
     });
 
     csv_file_q1.write_file(&vec!["type", "agency", "requests"], rows_q1)?;
@@ -132,6 +155,34 @@ fn main() -> Result<(), Box<dyn Error>> {
     csv_file_q3.write_file(&vec!["agency", "year", "month", "resolvedYTD"], rows_q3)?;
     // ======= END Query 3 =======
 
+    // ======= Query 4 =======
+    let csv_file_q4 = CSVFile {
+        path: PathBuf::from("query4.csv"),
+    };
+
+    let mut rows_q4: Vec<[String; 3]> = Vec::new();
+
+    for ((lat, lon), &_) in &promPerQuad {
+        let mut total = 0;
+        let lat_i32 = *lat as i32;
+        let lon_i32 = *lon as i32;
+
+        for dlat in -1..=1 {
+            for dlon in -1..=1 {
+                let neighbor = ((lat_i32 + dlat) as u32, (lon_i32 + dlon) as u32);
+                total += promPerQuad.get(&neighbor).unwrap_or(&0);
+            }
+        }
+
+        let avg = (total as f64 / 9.0).trunc();
+        if avg > 0.0 {
+            rows_q4.push([lat.to_string(), lon.to_string(), format!("{:.2}", avg)]);
+        }
+    }
+
+    csv_file_q4.write_file(&vec!["quadLat", "quadLon", "resolvedAvg"], rows_q4)?;
+    // ======= END Query 4 =======
+
     // HTML output 👇
     let mut table = HTMLTable::new("output_query1.html", vec!["type", "agency", "requests"])?;
 
@@ -162,6 +213,20 @@ fn main() -> Result<(), Box<dyn Error>> {
     }
 
     table.close()?;
+
+    Ok(())
+}
+
+pub fn validateYear(year: &str) -> Result<(), String> {
+    if year.len() != 4 {
+        return Err("Year must be a 4-digit number".to_string());
+    }
+
+    let year_num: i32 = year.parse().map_err(|_| "Year must be a valid number")?;
+
+    if year_num < 1900 || year_num > 2100 {
+        return Err("Year must be between 1900 and 2100".to_string());
+    }
 
     Ok(())
 }

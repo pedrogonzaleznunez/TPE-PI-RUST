@@ -130,6 +130,7 @@ pub fn readReqCsv(
     agencyByYearByMonthBySize: &mut BTreeMap<String, BTreeMap<i32, BTreeMap<i32, i32>>>,
     fromToDates: &mut Vec<i32>,
     promPerQuad: &mut BTreeMap<(u32, u32), i32>,
+
 ) -> Result<()> {
     let csv_file = CSVFile {
         path: PathBuf::from(filePath),
@@ -220,6 +221,7 @@ pub fn readReqCsv(
                     // nothing to do crazy piter
                 }
             }
+
         }
     })?;
 

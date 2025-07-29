@@ -1,6 +1,9 @@
 use std::process::Command; // Run programs
 
 #[test]
+
+#[cfg(feature = "nyc")]
+
 fn nyc_query1() -> Result<(), Box<dyn std::error::Error>> {
     let binary_path = env!("CARGO_BIN_EXE_tpe_pi_rust");
     let mut cmd = Command::new(binary_path);
@@ -17,6 +20,9 @@ fn nyc_query1() -> Result<(), Box<dyn std::error::Error>> {
 }
 
 #[test]
+
+#[cfg(feature = "nyc")]
+
 fn nyc_query2() -> Result<(), Box<dyn std::error::Error>> {
     let binary_path = env!("CARGO_BIN_EXE_tpe_pi_rust");
     let mut cmd = Command::new(binary_path);
@@ -33,6 +39,9 @@ fn nyc_query2() -> Result<(), Box<dyn std::error::Error>> {
 }
 
 #[test]
+
+#[cfg(feature = "nyc")]
+
 fn nyc_query3() -> Result<(), Box<dyn std::error::Error>> {
     let binary_path = env!("CARGO_BIN_EXE_tpe_pi_rust");
     let mut cmd = Command::new(binary_path);

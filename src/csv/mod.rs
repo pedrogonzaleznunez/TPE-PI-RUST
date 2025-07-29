@@ -220,11 +220,6 @@ pub fn readReqCsv(
                     // nothing to do crazy piter
                 }
             }
-
-            promPerQuad
-                .entry((lat_quadrant as u32, lng_quadrant as u32))
-                .and_modify(|count: &mut i32| *count += 1)
-                .or_insert(1);
         }
     })?;
 

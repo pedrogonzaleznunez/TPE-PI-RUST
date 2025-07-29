@@ -198,27 +198,30 @@ pub fn readReqCsv(
     Ok(())
 }
 
-struct Matrix<T> {
-    elems: Vec<Vec<T>>,
-}
+// struct Matrix<T> {
+//     elems: Vec<Vec<T>>,
+// }
 
-impl<T> Matrix<T> {
-    pub fn new() -> Matrix<T> {
-        Matrix { elems: vec![] }
-    }
+// impl<T> Matrix<T> {
+//     pub fn new() -> Matrix<T> {
+//         Matrix { elems: vec![] }
+//     }
 
-    pub fn insert(&mut self, x: usize, y: usize, elem: T) -> () {
-        // missing: Resize the entire matrix, keep track of size, handle negative indexes
-        self.elems
-            .get_mut(y)
-            .get_or_insert(&mut Vec::with_capacity(x))
-            .insert(x, elem);
-    }
+//     pub fn insert(&mut self, x: usize, y: usize, elem: T) -> () {
+//         // missing: Resize the entire matrix, keep track of size, handle negative indexes
+//         if (y > self.elems.len()) {
+//             self.elems.resize_with(y + 1, Default::default);
+//         }
+//         if (x > self.elems[y].len()) {
+//             self.elems[y].resize(x + 1, );
+//         }
+//         self.elems[y][x] = elem;
+//     }
 
-    pub fn getElem(&self, x: usize, y: usize) -> Option<&T> {
-        self.elems.get(y)?.get(x)
-    }
-}
+//     pub fn getElem(&self, x: usize, y: usize) -> Option<&T> {
+//         self.elems.get(y)?.get(x)
+//     }
+// }
 
 // aux method for query 2
 fn getquadrantFromLatLng(lat: f64, lng: f64) -> (i32, i32) {
@@ -235,21 +238,20 @@ mod tests {
     use std::fs::read_to_string;
     use temp_dir::TempDir;
 
-        use super::*;
-    #[test]
-    fn newMatrix() {
-        let mat: Matrix<i8> = Matrix::new();
-        assert_eq!(mat.getElem(0, 0), None);
-    }
+    // #[test]
+    // fn newMatrix() {
+    //     let mat: Matrix<i8> = Matrix::new();
+    //     assert_eq!(mat.getElem(0, 0), None);
+    // }
 
-    #[test]
-    fn insert() {
-        let mut mat: Matrix<i8> = Matrix::new();
-        mat.insert(0, 0, 1);
-        assert_eq!(mat.getElem(0, 0), Some(&1));
-        mat.insert(1, 0, 2);
-        assert_eq!(mat.getElem(1, 0), Some(&2));
-    }
+    // #[test]
+    // fn insert() {
+    //     let mut mat: Matrix<i8> = Matrix::new();
+    //     mat.insert(0, 0, 1);
+    //     assert_eq!(mat.getElem(0, 0), Some(&1));
+    //     mat.insert(1, 0, 2);
+    //     assert_eq!(mat.getElem(1, 0), Some(&2));
+    // }
 
     #[test]
     fn write_csv() -> Result<()> {

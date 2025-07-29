@@ -71,7 +71,6 @@ fn main() -> Result<(), Box<dyn Error>> {
         &mut typesByAgencyBySize,       // for query 1
         &mut boroughLatLngBySize,       // for query 2
         &mut agencyByYearByMonthBySize, // for query 3
-        &mut promPerQuad,               // for query 4
     )?;
 
     // ######## Writes to output files ########

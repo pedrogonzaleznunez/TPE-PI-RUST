@@ -1,5 +1,6 @@
 #![allow(non_snake_case)]
 
+use std::cmp::{max, min};
 use std::collections::BTreeMap;
 use std::collections::HashMap;
 
@@ -68,7 +69,8 @@ fn main() -> Result<(), Box<dyn Error>> {
     let mut typesByAgencyBySize: BTreeMap<String, BTreeMap<String, i32>> = BTreeMap::new();
 
     // structures for query 2
-    let mut boroughLatLngBySize: BTreeMap<(String, i32, i32), i32> = BTreeMap::new();
+    let mut boroughLatLngBySize: BTreeMap<(String, i32, i32), (i32, i32, i32, i32, i32)> =
+        BTreeMap::new();
 
     // structures for query 3
     let mut agencyByYearByMonthBySize: BTreeMap<String, BTreeMap<i32, BTreeMap<i32, i32>>> =
@@ -115,7 +117,7 @@ fn main() -> Result<(), Box<dyn Error>> {
     };
     let rows_q2 = boroughLatLngBySize
         .iter()
-        .map(|((borough, lat, long), count)| {
+        .map(|((borough, lat, long), (count, _, _, _, _))| {
             [borough, lat, long, count] as [&dyn std::fmt::Display; 4]
         });
     csv_file_q2.write_file(
@@ -152,35 +154,69 @@ fn main() -> Result<(), Box<dyn Error>> {
     csv_file_q3.write_file(&vec!["agency", "year", "month", "resolvedYTD"], rows_q3)?;
     // ======= END Query 3 =======
 
-    if args_count > 1 {
-        // ======= Query 4 =======
-        let csv_file_q4 = CSVFile {
-            path: PathBuf::from("query4.csv"),
-        };
+    // ======= Query 4 =======
+    let csv_file_q4 = CSVFile {
+        path: PathBuf::from("query4.csv"),
+    };
 
-        let mut rows_q4: Vec<[String; 3]> = Vec::new();
+    let mut rows_q4: Vec<[String; 3]> = Vec::new();
 
-        for ((lat, lon), &_) in &promPerQuad {
-            let mut total = 0;
-            let lat_i32 = *lat as i32;
-            let lon_i32 = *lon as i32;
+    for ((lat, lon), &_) in &promPerQuad {
+        let mut total = 0;
+        let lat_i32 = *lat as i32;
+        let lon_i32 = *lon as i32;
 
-            for dlat in -1..=1 {
-                for dlon in -1..=1 {
-                    let neighbor = ((lat_i32 + dlat) as u32, (lon_i32 + dlon) as u32);
-                    total += promPerQuad.get(&neighbor).unwrap_or(&0);
-                }
-            }
-
-            let avg = (total as f64 / 9.0).trunc();
-            if avg > 0.0 {
-                rows_q4.push([lat.to_string(), lon.to_string(), format!("{:.2}", avg)]);
+        for dlat in -1..=1 {
+            for dlon in -1..=1 {
+                let neighbor = ((lat_i32 + dlat) as u32, (lon_i32 + dlon) as u32);
+                total += promPerQuad.get(&neighbor).unwrap_or(&0);
             }
         }
 
-        csv_file_q4.write_file(&vec!["quadLat", "quadLon", "resolvedAvg"], rows_q4)?;
-        // ======= END Query 4 =======
+        let avg = (total as f64 / 9.0).trunc();
+        if avg > 0.0 {
+            rows_q4.push([lat.to_string(), lon.to_string(), format!("{:.2}", avg)]);
+        }
     }
+
+    csv_file_q4.write_file(&vec!["quadLat", "quadLon", "resolvedAvg"], rows_q4)?;
+    // ======= END Query 4 =======
+
+    // ======= Query 5 =======
+
+    let csv_file_q5 = CSVFile {
+        path: PathBuf::from("query5.csv"),
+    };
+
+    boroughLatLngBySize.iter().fold(
+        HashMap::new(),
+        |mut acc, ((borough, _, _), (_, no_lat, no_long, se_lat, se_long))| {
+            // no_lat no_lng se_lat se_lng
+            let v = acc.entry(borough).or_insert(vec![0, 0, 0, 0, 0]);
+            v[0] = min(v[0], *no_lat);
+            v[1] = min(v[1], *no_long);
+            v[2] = max(v[2], *se_lat);
+            v[3] = max(v[3], *se_long);
+            acc
+        },
+    );
+
+    csv_file_q5.write_file(
+        &vec!["borough", "no_lat", "no_lon", "se_lat", "se_lon"],
+        boroughLatLngBySize.iter().map(
+            |((borough, _, _), (_, no_lat, no_long, se_lat, se_long))| {
+                [
+                    Box::new(borough),
+                    Box::new((*no_lat as f64) * 0.01),
+                    Box::new((*no_long as f64) * 0.01),
+                    Box::new((*se_lat as f64) * 0.01),
+                    Box::new((*se_long as f64) * 0.01),
+                ] as [Box<dyn std::fmt::Display>; 5]
+            },
+        ),
+    )?;
+
+    // ======= END Query 5 =======
 
     // HTML output 👇
     let mut table = HTMLTable::new("output_query1.html", vec!["type", "agency", "requests"])?;
@@ -202,7 +238,7 @@ fn main() -> Result<(), Box<dyn Error>> {
         vec!["borough", "latitude", "longitude", "requests"],
     )?;
 
-    for ((borough, lat, long), count) in &boroughLatLngBySize {
+    for ((borough, lat, long), (count, _, _, _, _)) in &boroughLatLngBySize {
         table.add_row(vec![
             borough.as_str(),
             lat.to_string().as_str(),

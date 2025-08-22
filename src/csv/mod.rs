@@ -131,11 +131,12 @@ pub fn readReqCsv(
     filePath: &str,
     typesByAcronym: &mut HashMap<String, String>,
     typesByAgencyBySize: &mut BTreeMap<String, BTreeMap<String, i32>>,
-    boroughLatLngBySize: &mut BTreeMap<(String, i32, i32), i32>,
+    boroughLatLngBySize: &mut BTreeMap<(String, i32, i32), (i32, i32, i32, i32, i32)>,
     agencyByYearByMonthBySize: &mut BTreeMap<String, BTreeMap<i32, BTreeMap<i32, i32>>>,
     fromToDates: &mut Vec<i32>,
     promPerQuad: &mut BTreeMap<(u32, u32), i32>,
 ) -> Result<()> {
+    let lat_lon_resolution: f64 = 0.01;
     let csv_file = CSVFile {
         path: PathBuf::from(filePath),
     };
@@ -186,8 +187,20 @@ pub fn readReqCsv(
         // data for query2
         boroughLatLngBySize
             .entry((borough.to_string(), lat_quadrant, lng_quadrant))
-            .and_modify(|count: &mut i32| *count += 1)
-            .or_insert(1);
+            .and_modify(|count: &mut (i32, i32, i32, i32, i32)| {
+                count.0 += 1;
+                count.1 = std::cmp::min(count.1, (lat / lat_lon_resolution) as i32);
+                count.2 = std::cmp::min(count.2, (lng / lat_lon_resolution) as i32);
+                count.3 = std::cmp::max(count.3, (lat / lat_lon_resolution) as i32);
+                count.4 = std::cmp::max(count.4, (lng / lat_lon_resolution) as i32);
+            })
+            .or_insert((
+                1,
+                (lat / lat_lon_resolution) as i32,
+                (lng / lat_lon_resolution) as i32,
+                (lat / lat_lon_resolution) as i32,
+                (lng / lat_lon_resolution) as i32,
+            ));
 
         if status == Status::Closed {
             // data for query3

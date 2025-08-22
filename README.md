@@ -23,13 +23,13 @@ git clone https://github.com/pedrogonzaleznunez/TPE-PI-RUST.git
 cd TPE-PI-RUST
 
 # Build the project
-cargo build
+cargo build --features [nyc|chi]
 
 # Run the project
-cargo run
+cargo run --features [nyc|chi]
 
 # Run tests
-cargo test
+cargo test --features [nyc|chi]
 ```
 
 ## Development

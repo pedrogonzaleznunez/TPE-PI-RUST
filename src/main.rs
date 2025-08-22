@@ -36,10 +36,7 @@ fn main() -> Result<(), Box<dyn Error>> {
 
     // argument validations
     match args_count {
-        0..=1 => {
-            eprintln!("Error: Not enough arguments");
-            return Err("Not enough arguments".into());
-        }
+        0..=1 => {}
         2 => {
             if validateYear(&args[1]).is_err() {
                 eprintln!("Error: <toDate> must be a valid year");
@@ -155,33 +152,35 @@ fn main() -> Result<(), Box<dyn Error>> {
     csv_file_q3.write_file(&vec!["agency", "year", "month", "resolvedYTD"], rows_q3)?;
     // ======= END Query 3 =======
 
-    // ======= Query 4 =======
-    let csv_file_q4 = CSVFile {
-        path: PathBuf::from("query4.csv"),
-    };
+    if args_count > 1 {
+        // ======= Query 4 =======
+        let csv_file_q4 = CSVFile {
+            path: PathBuf::from("query4.csv"),
+        };
 
-    let mut rows_q4: Vec<[String; 3]> = Vec::new();
+        let mut rows_q4: Vec<[String; 3]> = Vec::new();
 
-    for ((lat, lon), &_) in &promPerQuad {
-        let mut total = 0;
-        let lat_i32 = *lat as i32;
-        let lon_i32 = *lon as i32;
+        for ((lat, lon), &_) in &promPerQuad {
+            let mut total = 0;
+            let lat_i32 = *lat as i32;
+            let lon_i32 = *lon as i32;
 
-        for dlat in -1..=1 {
-            for dlon in -1..=1 {
-                let neighbor = ((lat_i32 + dlat) as u32, (lon_i32 + dlon) as u32);
-                total += promPerQuad.get(&neighbor).unwrap_or(&0);
+            for dlat in -1..=1 {
+                for dlon in -1..=1 {
+                    let neighbor = ((lat_i32 + dlat) as u32, (lon_i32 + dlon) as u32);
+                    total += promPerQuad.get(&neighbor).unwrap_or(&0);
+                }
+            }
+
+            let avg = (total as f64 / 9.0).trunc();
+            if avg > 0.0 {
+                rows_q4.push([lat.to_string(), lon.to_string(), format!("{:.2}", avg)]);
             }
         }
 
-        let avg = (total as f64 / 9.0).trunc();
-        if avg > 0.0 {
-            rows_q4.push([lat.to_string(), lon.to_string(), format!("{:.2}", avg)]);
-        }
+        csv_file_q4.write_file(&vec!["quadLat", "quadLon", "resolvedAvg"], rows_q4)?;
+        // ======= END Query 4 =======
     }
-
-    csv_file_q4.write_file(&vec!["quadLat", "quadLon", "resolvedAvg"], rows_q4)?;
-    // ======= END Query 4 =======
 
     // HTML output 👇
     let mut table = HTMLTable::new("output_query1.html", vec!["type", "agency", "requests"])?;
